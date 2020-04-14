@@ -16,6 +16,8 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.Columns;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Table
 @Entity
 public class Categoria implements Serializable {
@@ -29,6 +31,7 @@ public class Categoria implements Serializable {
 	@Column
 	private String nome;
 	
+	@JsonManagedReference
 	@ManyToMany(mappedBy="categorias")		
 	private List<Produto> produtos = new ArrayList<>();
 
