@@ -3,6 +3,9 @@ package br.com.roma.domain.enums;
 import java.io.Serializable;
 
 import javax.persistence.Entity;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 
 import br.com.roma.domain.Cidade;
@@ -21,6 +24,7 @@ public class Endereco implements Serializable {
 		private String bairro;
 		private String cep;
 		
+		@JsonBackReference
 		@ManyToOne
 		@JoinColumn(name="id_cliente")
 		private Cliente cliente;
