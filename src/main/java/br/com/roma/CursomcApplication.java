@@ -11,8 +11,13 @@ import br.com.roma.domain.Categoria;
 import br.com.roma.domain.Cidade;
 import br.com.roma.domain.Estado;
 import br.com.roma.domain.Produto;
+import br.com.roma.domain.enums.Cliente;
+import br.com.roma.domain.enums.Endereco;
+import br.com.roma.domain.enums.TipoCliente;
 import br.com.roma.repositories.CategoriaRepository;
 import br.com.roma.repositories.CidadeRepository;
+import br.com.roma.repositories.ClienteRepository;
+import br.com.roma.repositories.EnderecoRepository;
 import br.com.roma.repositories.EstadoRepository;
 import br.com.roma.repositories.ProdutoRepository;
 
@@ -28,6 +33,11 @@ public class CursomcApplication implements CommandLineRunner {
 	private CidadeRepository repoCid;
 	@Autowired
 	private EstadoRepository repoEst;
+	@Autowired
+	private EnderecoRepository endRepo;
+	@Autowired
+	private ClienteRepository cliRepo;
+	
 	
 	
 	public static void main(String[] args) {
@@ -65,8 +75,20 @@ public class CursomcApplication implements CommandLineRunner {
 		repoEst.saveAll(Arrays.asList(e1,e2));
 		repoCid.saveAll(Arrays.asList(c1,c2,c3));
 		
+		Cliente cli1 = new Cliente(null,"Henrique Roma,","hrlima7@gmail.com","012.794.105-31",TipoCliente.PESSOA_FISICA);
+		cli1.getTelefones().addAll(Arrays.asList("3372-1519","987630665"));
+		
+		Cliente cli2 = new Cliente(null,"Ana Barbara,","Anab@gmail.com","012.794.105-31",TipoCliente.PESSOA_FISICA);
+		cli2.getTelefones().addAll(Arrays.asList("87554958", "3345-8756"));
+		
+		
+		Endereco end1 = new Endereco(null,"Rua das acassias","723","Condominio das flores","Sussuarana","41213-122",cli1,c1);
 	
-	
+		cliRepo.saveAll(Arrays.asList(cli1,cli2));
+		endRepo.saveAll(Arrays.asList(end1));
+		
+		
+		
 	}
 
 }
