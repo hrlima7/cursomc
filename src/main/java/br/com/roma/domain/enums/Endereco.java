@@ -24,6 +24,8 @@ public class Endereco implements Serializable {
 		private String bairro;
 		private String cep;
 		
+		
+		
 		@JsonBackReference
 		@ManyToOne
 		@JoinColumn(name="id_cliente")
@@ -136,6 +138,13 @@ public class Endereco implements Serializable {
 			} else if (!id.equals(other.id))
 				return false;
 			return true;
+		}
+
+		@Override
+		public String toString() {
+			return "Endereco [id=" + id + ", logradouro=" + logradouro + ", numero=" + numero + ", complemento="
+					+ complemento + ", bairro=" + bairro + ", cep=" + cep + ", cliente=" + cliente + ", cidade="
+					+ cidade + "]";
 		}
 		
 		
