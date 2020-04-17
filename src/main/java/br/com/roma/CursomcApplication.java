@@ -1,5 +1,6 @@
 package br.com.roma;
 
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,15 +11,22 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import br.com.roma.domain.Categoria;
 import br.com.roma.domain.Cidade;
 import br.com.roma.domain.Estado;
+import br.com.roma.domain.Pagamento;
+import br.com.roma.domain.PagamentoComBoleto;
+import br.com.roma.domain.PagamentoComCartao;
+import br.com.roma.domain.Pedido;
 import br.com.roma.domain.Produto;
 import br.com.roma.domain.enums.Cliente;
 import br.com.roma.domain.enums.Endereco;
+import br.com.roma.domain.enums.EstadoPagamento;
 import br.com.roma.domain.enums.TipoCliente;
 import br.com.roma.repositories.CategoriaRepository;
 import br.com.roma.repositories.CidadeRepository;
 import br.com.roma.repositories.ClienteRepository;
 import br.com.roma.repositories.EnderecoRepository;
 import br.com.roma.repositories.EstadoRepository;
+import br.com.roma.repositories.PagamentoRepository;
+import br.com.roma.repositories.PedidoRepository;
 import br.com.roma.repositories.ProdutoRepository;
 
 @SpringBootApplication
@@ -37,6 +45,10 @@ public class CursomcApplication implements CommandLineRunner {
 	private EnderecoRepository endRepo;
 	@Autowired
 	private ClienteRepository cliRepo;
+	@Autowired
+	private PedidoRepository pedRepo;
+	@Autowired
+	private PagamentoRepository pagrepo;
 	
 	
 	
@@ -88,7 +100,22 @@ public class CursomcApplication implements CommandLineRunner {
 		cliRepo.saveAll(Arrays.asList(cli1,cli2));
 		endRepo.saveAll(Arrays.asList(end1));
 		
-	
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/YYYY HH:mm");
+		
+		Pedido ped1 = new Pedido(null,sdf.parse("17/04/2020 10:00"),cli1,end1) ;
+		Pedido ped2 = new Pedido(null,sdf.parse("10/03/2020 10:00"),cli2,end1) ;
+		
+		Pagamento pgto1 = new PagamentoComCartao(null, EstadoPagamento.QUITADO, ped1, 6);
+		ped1.setPagamento(pgto1);
+		
+		Pagamento pgto2 = new PagamentoComBoleto(null, EstadoPagamento.PENDENTE, ped2, sdf.parse("05/08/2020 23:43"), null);
+		ped2.setPagamento(pgto2);
+		
+		cli1.getPedidos().addAll(Arrays.asList(ped1,ped2));
+		
+		pedRepo.saveAll(Arrays.asList(ped1,ped2));
+		pagrepo.saveAll(Arrays.asList(pgto1,pgto2));
+		
 		
 	}
 

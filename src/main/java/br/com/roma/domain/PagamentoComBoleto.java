@@ -2,10 +2,11 @@ package br.com.roma.domain;
 
 import java.util.Date;
 
-import br.com.roma.domain.enums.Cliente;
-import br.com.roma.domain.enums.Endereco;
+import javax.persistence.Entity;
+
 import br.com.roma.domain.enums.EstadoPagamento;
 
+@Entity
 public class PagamentoComBoleto extends Pagamento{
 	private static final long serialVersionUID = 1L;
 	

@@ -1,7 +1,9 @@
 package br.com.roma.domain;
 
-import br.com.roma.domain.enums.EstadoPagamento;
+import javax.persistence.Entity;
 
+import br.com.roma.domain.enums.EstadoPagamento;
+@Entity
 public class PagamentoComCartao extends Pagamento{
 	private static final long serialVersionUID = 1L;
 	
