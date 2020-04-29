@@ -1,6 +1,8 @@
 package br.com.roma.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -8,26 +10,41 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.OneToMany;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
+import br.com.roma.domain.enums.Endereco;
+
+@JsonIdentityInfo(
+		  generator = ObjectIdGenerators.PropertyGenerator.class, 
+		  property = "id")
 @Entity
-@Table
 public class Cidade implements Serializable  {	
 	private static final long serialVersionUID = 1L;
 
 
 		@Id
 		@GeneratedValue(strategy=GenerationType.IDENTITY)
-		private Integer id;
-		
+		private Integer id;	
 		private String nome;
 		
-		@JsonManagedReference
 		@ManyToOne
 		@JoinColumn(name="estado")
 		private Estado estado;
+		
+		public List<Endereco> getEnderecos() {
+			return enderecos;
+		}
+
+		public void setEnderecos(List<Endereco> enderecos) {
+			this.enderecos = enderecos;
+		}
+
+		@OneToMany(mappedBy="cidade")
+		private List<Endereco> enderecos = new ArrayList<>();
+		
 
 		public Cidade(Integer id, String nome, Estado estado) {
 			super();
@@ -64,9 +81,6 @@ public class Cidade implements Serializable  {
 			this.estado = estado;
 		}
 
-		public static long getSerialversionuid() {
-			return serialVersionUID;
-		}
 
 		@Override
 		public int hashCode() {

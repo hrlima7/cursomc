@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
@@ -13,13 +14,16 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import br.com.roma.domain.Pedido;
 
-@Table
+@JsonIdentityInfo(
+		  generator = ObjectIdGenerators.PropertyGenerator.class, 
+		  property = "id")
 @Entity
 public class Cliente implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -32,13 +36,15 @@ public class Cliente implements Serializable {
 		private String cpfouCNPJ;
 		private Integer tipo;
 		
+		@JsonIgnore
 		@OneToMany(mappedBy="cliente")
 		private List<Pedido> pedidos = new ArrayList<>();
 		
-		@JsonManagedReference
-		@OneToMany(mappedBy="cliente")
+
+		@OneToMany(mappedBy="cliente",cascade=CascadeType.ALL)
 		private List<Endereco> enderecos = new ArrayList<>();
 		
+	
 		@ElementCollection
 		@CollectionTable(name="tb_telefone")
 		private Set<String>telefones = new HashSet<>();
@@ -127,6 +133,7 @@ public class Cliente implements Serializable {
 		public void setTelefones(Set<String> telefones) {
 			this.telefones = telefones;
 		}
+	
 		public List<Pedido> getPedidos() {
 			return pedidos;
 		}

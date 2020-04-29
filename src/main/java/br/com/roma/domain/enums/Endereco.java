@@ -3,15 +3,21 @@ package br.com.roma.domain.enums;
 import java.io.Serializable;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-
-import javax.persistence.*;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import br.com.roma.domain.Cidade;
 
+@JsonIdentityInfo(
+		  generator = ObjectIdGenerators.PropertyGenerator.class, 
+		  property = "id")
 @Entity
-@Table
 public class Endereco implements Serializable {
 	private static final long serialVersionUID = 1L;
 		
@@ -26,15 +32,23 @@ public class Endereco implements Serializable {
 		
 		
 		
-		@JsonBackReference
 		@ManyToOne
 		@JoinColumn(name="id_cliente")
 		private Cliente cliente;
-		
+	
+
 		@ManyToOne
 		@JoinColumn(name="id_cidade")
 		private Cidade cidade;
 		
+		public Cidade getCidade() {
+			return cidade;
+		}
+
+		public void setCidade(Cidade cidade) {
+			this.cidade = cidade;
+		}
+
 		public Endereco() {
 			
 		}
@@ -49,7 +63,8 @@ public class Endereco implements Serializable {
 			this.bairro = bairro;
 			this.cep = cep;
 			this.cliente = cliente;
-			this.cidade = cidade;		}
+			this.cidade =cidade;
+					}
 
 		public Integer getId() {
 			return id;
@@ -106,7 +121,7 @@ public class Endereco implements Serializable {
 		public void setCliente(Cliente cliente) {
 			this.cliente = cliente;
 		}
-
+/*
 		public Cidade getCidade() {
 			return cidade;
 		}
@@ -114,7 +129,7 @@ public class Endereco implements Serializable {
 		public void setCidade(Cidade cidade) {
 			this.cidade = cidade;
 		}
-
+*/
 		@Override
 		public int hashCode() {
 			final int prime = 31;
@@ -144,7 +159,7 @@ public class Endereco implements Serializable {
 		public String toString() {
 			return "Endereco [id=" + id + ", logradouro=" + logradouro + ", numero=" + numero + ", complemento="
 					+ complemento + ", bairro=" + bairro + ", cep=" + cep + ", cliente=" + cliente + ", cidade="
-					+ cidade + "]";
+					+ "]";
 		}
 		
 		

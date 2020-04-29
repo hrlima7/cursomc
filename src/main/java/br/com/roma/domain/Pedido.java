@@ -12,6 +12,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import br.com.roma.domain.enums.Cliente;
 import br.com.roma.domain.enums.Endereco;
 
@@ -24,15 +28,20 @@ public class Pedido implements Serializable {
 	private Integer id;
 	private Date instante;
 	
+	@JsonManagedReference
 	@OneToOne(cascade=CascadeType.ALL, mappedBy="pedido")
 	private Pagamento pagamento;
 	
+	@JsonBackReference
 	@ManyToOne
 	@JoinColumn(name="client_id")
+	@JsonIgnore
 	private Cliente cliente;
+	
 	
 	@ManyToOne
 	@JoinColumn(name="endereco_de_entrega_id")
+	@JsonIgnore
 	private Endereco EnderecoDeEntrega;
 	
 	

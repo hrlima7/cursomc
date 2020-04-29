@@ -1,5 +1,6 @@
 package br.com.roma.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,14 @@ public class ClienteService {
 
 	@Autowired
 	ClienteRepository service ; 
+	
+	public List<Cliente> buscarAll() {
+		
+		List<Cliente> list = service.findAll();
+	
+	
+		return list;
+	}
 	
 	
 	public Cliente buscarPorId(Integer cod) {

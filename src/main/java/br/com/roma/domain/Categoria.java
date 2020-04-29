@@ -9,14 +9,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
 
-import org.hibernate.annotations.Columns;
-
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import org.hibernate.validator.constraints.Length;
 
 @Table
 @Entity
@@ -28,10 +25,13 @@ public class Categoria implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id ;
+	
+	@NotEmpty (message =  "Nao pode ser vazio")
+	@Length(min=5 , message="o minimo devera ser 5 letras")
 	@Column
 	private String nome;
 	
-	@JsonManagedReference
+	//@JsonManagedReferences
 	@ManyToMany(mappedBy="categorias")		
 	private List<Produto> produtos = new ArrayList<>();
 
@@ -41,8 +41,8 @@ public class Categoria implements Serializable {
 	}	
 	
 	public Categoria(Integer id , String nome) {
-		super();
-		id = id;
+		
+		this.id = id;
 		this.nome = nome;
 	}
 	

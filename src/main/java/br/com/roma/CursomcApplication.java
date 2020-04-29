@@ -59,12 +59,13 @@ public class CursomcApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		
-		Categoria cat1 = new Categoria(1,"informatica");
-		Categoria cat2 = new Categoria(2,"escritorio");
+		Categoria cat1 = new Categoria(null,"informatica");
+		Categoria cat2 = new Categoria(null,"escritorio");
 		
-		Produto p1 = new Produto(1,"teclado",20.0);
-		Produto p2 = new Produto(2,"impressora",340.0);
-		Produto p3 = new Produto(3,"mouse",20.0);
+		Produto p1 = new Produto(null,"teclado",20.0);
+		Produto p2 = new Produto(null,"impressora",340.0);
+		Produto p3 = new Produto(null,"mouse",20.0);
+		
 		
 		p1.getCategorias().addAll(Arrays.asList(cat1));
 		p2.getCategorias().addAll(Arrays.asList(cat1,cat2));
@@ -72,6 +73,7 @@ public class CursomcApplication implements CommandLineRunner {
 
 		cat1.getProdutos().addAll(Arrays.asList(p1,p3));
 		cat2.getProdutos().addAll(Arrays.asList(p2));
+	
 
 		repoCat.saveAll(Arrays.asList(cat1,cat2));
 		repoProd.saveAll(Arrays.asList(p1,p2,p3));
@@ -83,27 +85,27 @@ public class CursomcApplication implements CommandLineRunner {
 		
 		Cidade c1 = new Cidade(null,"Rio Real",e1);
 		Cidade c2 = new Cidade(null, "Esplanada",e1);
-		Cidade c3 = new Cidade(null, "Niteori", e2);
+		Cidade c3 = new Cidade(null, "PETROPOLES", e2);
 		
 	
-		repoCid.saveAll(Arrays.asList(c1,c2,c3));
+		
 		
 		Cliente cli1 = new Cliente(null,"Henrique Roma,","hrlima7@gmail.com","012.794.105-31",TipoCliente.PESSOA_FISICA);
 		cli1.getTelefones().addAll(Arrays.asList("3372-1519","987630665"));
 		
-		Cliente cli2 = new Cliente(null,"Ana Barbara,","Anab@gmail.com","012.794.105-31",TipoCliente.PESSOA_FISICA);
-		cli2.getTelefones().addAll(Arrays.asList("87554958", "3345-8756"));
-		
-		
-		Endereco end1 = new Endereco(null,"Rua das acassias","723","Condominio das flores","Sussuarana","41213-122",cli1,c2);
 	
-		cliRepo.saveAll(Arrays.asList(cli1,cli2));
+		
+		
+		Endereco end1 = new Endereco(null,"Rua das acassias","723","Condominio das flores","Sussuarana","41213-122",cli1,c3);
+		
+		repoCid.saveAll(Arrays.asList(c1,c2,c3));
+		cliRepo.saveAll(Arrays.asList(cli1));
 		endRepo.saveAll(Arrays.asList(end1));
 		
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/YYYY HH:mm");
 		
 		Pedido ped1 = new Pedido(null,sdf.parse("17/04/2020 10:00"),cli1,end1) ;
-		Pedido ped2 = new Pedido(null,sdf.parse("10/03/2020 10:00"),cli2,end1) ;
+		Pedido ped2 = new Pedido(null,sdf.parse("10/03/2020 10:00"),cli1,end1) ;
 		
 		Pagamento pgto1 = new PagamentoComCartao(null, EstadoPagamento.QUITADO, ped1, 6);
 		ped1.setPagamento(pgto1);
