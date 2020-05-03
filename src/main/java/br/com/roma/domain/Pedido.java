@@ -2,6 +2,8 @@ package br.com.roma.domain;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -37,7 +39,6 @@ public class Pedido implements Serializable {
 	@JoinColumn(name="client_id")
 	@JsonIgnore
 	private Cliente cliente;
-	
 	
 	@ManyToOne
 	@JoinColumn(name="endereco_de_entrega_id")

@@ -11,7 +11,7 @@ import br.com.roma.domain.Categoria;
 @Transactional
 public interface CategoriaRepository extends JpaRepository <Categoria, Integer>  {
 
-	
+
 	
 	
 }

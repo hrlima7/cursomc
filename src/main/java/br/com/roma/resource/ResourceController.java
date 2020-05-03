@@ -36,7 +36,7 @@ public class ResourceController {
 	
 
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)
-	public ResponseEntity find(@PathVariable Integer id) {
+	public ResponseEntity<?> find(@PathVariable Integer id) {
 
 		Categoria obj = service.buscarporId(id) ;
 		return ResponseEntity.ok().body(obj);	
@@ -64,4 +64,18 @@ public class ResourceController {
 	
 	
 	}
+	
+
+	@RequestMapping(value="/{id}", method=RequestMethod.DELETE)
+	public ResponseEntity<?> delete(@PathVariable Integer id) {
+	
+			service.delete(id);
+			return ResponseEntity.noContent().build();
+		
+		
+		
+	}
+	
+	
+	
 }

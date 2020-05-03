@@ -26,8 +26,8 @@ public class CategoriaService {
 	public Categoria buscarporId(Integer id) {
 	
 		Optional<Categoria> obj = repo.findById(id);
-		
-		return obj.orElse(null);
+		return obj.orElseThrow(() -> new br.com.roma.services.exception.ObjectNotFoundException(
+				"Objeto não encontrado! Id: " + id + ", Tipo: " + Categoria.class.getName(), null));
 	}
 	
 	public Categoria insert (Categoria obj ) {
@@ -40,6 +40,12 @@ public class CategoriaService {
 	public Categoria update(Categoria obj) {
 		
 		return repo.save(obj);
+	}
+	
+	public void delete (Integer id) {
+		repo.findById(id);
+		repo.deleteById(id);
+		
 	}
 	
 	

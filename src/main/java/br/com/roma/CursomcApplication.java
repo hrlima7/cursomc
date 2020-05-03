@@ -87,14 +87,10 @@ public class CursomcApplication implements CommandLineRunner {
 		Cidade c2 = new Cidade(null, "Esplanada",e1);
 		Cidade c3 = new Cidade(null, "PETROPOLES", e2);
 		
-	
 		
-		
-		Cliente cli1 = new Cliente(null,"Henrique Roma,","hrlima7@gmail.com","012.794.105-31",TipoCliente.PESSOA_FISICA);
+		Cliente cli1 = new Cliente(null,"Henrique Roma,","hrlima7@gmail.com","012.794.105-31",TipoCliente.PESSOA_FISICA,null);
 		cli1.getTelefones().addAll(Arrays.asList("3372-1519","987630665"));
-		
-	
-		
+				
 		
 		Endereco end1 = new Endereco(null,"Rua das acassias","723","Condominio das flores","Sussuarana","41213-122",cli1,c3);
 		
@@ -102,7 +98,7 @@ public class CursomcApplication implements CommandLineRunner {
 		cliRepo.saveAll(Arrays.asList(cli1));
 		endRepo.saveAll(Arrays.asList(end1));
 		
-		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/YYYY HH:mm");
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 		
 		Pedido ped1 = new Pedido(null,sdf.parse("17/04/2020 10:00"),cli1,end1) ;
 		Pedido ped2 = new Pedido(null,sdf.parse("10/03/2020 10:00"),cli1,end1) ;
@@ -110,7 +106,7 @@ public class CursomcApplication implements CommandLineRunner {
 		Pagamento pgto1 = new PagamentoComCartao(null, EstadoPagamento.QUITADO, ped1, 6);
 		ped1.setPagamento(pgto1);
 		
-		Pagamento pgto2 = new PagamentoComBoleto(null, EstadoPagamento.PENDENTE, ped2, sdf.parse("05/08/2020 23:43"), null);
+		Pagamento pgto2 = new PagamentoComBoleto(null, EstadoPagamento.PENDENTE, ped2, sdf.parse("05/08/2020 23:43"),sdf.parse("05/08/2020 23:43"));
 		ped2.setPagamento(pgto2);
 		
 		cli1.getPedidos().addAll(Arrays.asList(ped1,ped2));

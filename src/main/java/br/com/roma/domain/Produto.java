@@ -2,14 +2,15 @@ package br.com.roma.domain;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinColumns;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
@@ -43,8 +44,6 @@ public class Produto implements Serializable  {
 		public void setCategorias(List<Categoria> categorias) {
 			this.categorias = categorias;
 		}
-
-		
 		
 
 		public Integer getId() {
@@ -70,9 +69,7 @@ public class Produto implements Serializable  {
 		public void setPreco(Double preco) {
 			this.preco = preco;
 		}
-
-		
-		
+	
 		public Produto() {
 			
 		}
@@ -108,8 +105,4 @@ public class Produto implements Serializable  {
 				return false;
 			return true;
 		}
-		
-		
-		
-	
 }
